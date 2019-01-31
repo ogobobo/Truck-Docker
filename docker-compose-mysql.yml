@@ -1,0 +1,37 @@
+#
+# docker-compose.yml
+#
+# Docker compose file for MySQL to support Truck App
+#
+# Key Considerations:
+# - MySQL service is on a single external bridge network
+#
+# Author: Ogonna Anaekwe
+#
+
+version: '3'
+
+#
+# Services
+#
+services:
+
+    #
+    # MySQL database
+    #
+    mysqldb:
+      image: mysql:5.7
+      volumes:
+        - ./db/mysql:/docker-entrypoint-initdb.d
+      environment:
+        MYSQL_ROOT_PASSWORD: my-secret-pw
+      ports:
+        - "3306:3306"
+
+#
+# Networks
+#
+networks:
+    localnet:
+        # driver: bridge
+        external: true
